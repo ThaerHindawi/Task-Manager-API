@@ -102,69 +102,85 @@ This Task Manager API was built following RESTful principles and Laravel best pr
 
 4. **Coding**
    - I define Task Table Schema in the 2025_05_17_174827_create_tasks_table.php
-   - Then I added the following code: ```php
-      public function up(): void
-    {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->boolean('is_completed')->default(false);
-            $table->timestamps();
-        });
-    }```
-   - I added the code in the TaskController file ```php
-    public function index()
-    {
-        $tasks = Task::all();
-        return response()->json($tasks, 200);
-    }
+   - Then I added the following code:
+   ```php
+   public function up(): void
+   {
+       Schema::create('tasks', function (Blueprint $table) {
+           $table->id();
+           $table->string('title');
+           $table->text('description')->nullable();
+           $table->boolean('is_completed')->default(false);
+           $table->timestamps();
+       });
+   }
+   ```
+   - I added the code in the TaskController file:
+   ```php
+   public function index()
+   {
+       $tasks = Task::all();
+       return response()->json($tasks, 200);
+   }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'is_completed' => 'boolean',
-        ]);
+   public function store(Request $request)
+   {
+       $validated = $request->validate([
+           'title' => 'required|string|max:255',
+           'description' => 'nullable|string',
+           'is_completed' => 'boolean',
+       ]);
 
-        $task = Task::create($validated);
+       $task = Task::create($validated);
 
-        // Reload the model to get all attributes including default values
-        $task = $task->fresh();
+       // Reload the model to get all attributes including default values
+       $task = $task->fresh();
 
-        return response()->json($task, 201);
-    }
+       return response()->json($task, 201);
+   }
 
-    public function show(Task $task)
-    {
-        return response()->json($task, 200);
-    }
+   public function show(Task $task)
+   {
+       return response()->json($task, 200);
+   }
 
-    public function update(Request $request, Task $task)
-    {
-        $validated = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string',
-            'is_completed' => 'nullable|boolean',
-        ]);
+   public function update(Request $request, Task $task)
+   {
+       $validated = $request->validate([
+           'title' => 'sometimes|required|string|max:255',
+           'description' => 'nullable|string',
+           'is_completed' => 'nullable|boolean',
+       ]);
 
-        $task->update($validated);
-        // Reload the model to get all attributes including default values
-        $task = $task->fresh();
+       $task->update($validated);
+       // Reload the model to get all attributes including default values
+       $task = $task->fresh();
 
-        return response()->json($task, 200);
-    }
+       return response()->json($task, 200);
+   }
 
-    public function destroy(Task $task)
-    {
-        $task->delete();
-        return response()->noContent();
-    }```
-    - I added ```php protected $fillable = ['title','description','is_completed'];``` to the task.php
-    - I define ```php Route::apiResource('tasks', TaskController::class);``` in the api.php file
-    - I run the command ```bash php artisan migrate```
-    - Lastly I run the command ```php artisan serve```
+   public function destroy(Task $task)
+   {
+       $task->delete();
+       return response()->noContent();
+   }
+   ```
+   - I added the following to the Task.php model:
+   ```php
+   protected $fillable = ['title', 'description', 'is_completed'];
+   ```
+   - I define the route in the api.php file:
+   ```php
+   Route::apiResource('tasks', TaskController::class);
+   ```
+   - I run the command:
+   ```bash
+   php artisan migrate
+   ```
+   - Lastly I run the command:
+   ```bash
+   php artisan serve
+   ```
 
 5. **Seeding**
    - I created seeding factory to populate some data in the Tasks table
