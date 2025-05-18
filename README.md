@@ -177,7 +177,7 @@ This Task Manager API was built following RESTful principles and Laravel best pr
    ```bash
    php artisan migrate
    ```
-   - Lastly I run the command:
+   - Lastly, I run the command:
    ```bash
    php artisan serve
    ```
