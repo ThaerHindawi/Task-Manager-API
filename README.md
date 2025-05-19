@@ -193,9 +193,8 @@ This Task Manager API was built following RESTful principles and Laravel best pr
    - I test this app using Postman
    - Postman collection file is included in the repository: [Task Manager API.postman_collection](Task%20Manager%20API.postman_collection)
    - To use this collection:
-     1. Download [Postman](https://www.postman.com/downloads/)
-     2. Import the collection file: File > Import > Upload Files > select `Task Manager API.postman_collection`
-     3. The collection contains pre-configured requests for all API endpoints
+     1. Import the collection file: File > Import > Upload Files > select `Task Manager API.postman_collection`
+     2. The collection contains pre-configured requests for all API endpoints
 
 7. **Deployment**
    - Deployed on Ubuntu server with Nginx web server
